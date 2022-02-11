@@ -40,17 +40,19 @@
             ],
             "VAT": "285,56 SEK",
             "totalCost": " 1 427,74 SEK",
-            "meterNumber": "20322576",
-            "datapoints": [
-                {
-                    "date": "2021—09—30",
-                    "value": "120918"
-                },
-                {
-                    "date": "2021—10—31",
-                    "value": "122382"
-                }
-            ],
+            "meterstands": {
+                "meterNumber": "20322576",
+                "datapoints": [
+                    {
+                        "date": "2021—09—30",
+                        "value": "120918"
+                    },
+                    {
+                        "date": "2021—10—31",
+                        "value": "122382"
+                    }
+                ]
+            },
             "totalCons": " 1 464 kWh 20 613 kWh"
         },
         {

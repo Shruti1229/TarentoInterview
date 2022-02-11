@@ -43,15 +43,16 @@ def text_to_labels(label, text, dict):
     if label == 'ms':
         sentences = text.split('\n')
         data_points = []
+        dict['meterstands'] = {}
         for sentence in sentences:
             index = sentence.find('nummer: ')
             if index != -1:
-                dict['meterNumber'] = ''.join([word for word in sentence if word.isdigit()])
+                dict['meterstands']['meterNumber'] = ''.join([word for word in sentence if word.isdigit()])
             a = re.findall(r"[\d]{4}—[\d]{1,2}—[\d]{1,2}", sentence)
             if a != []:
                 words = sentence.split()
                 data_points.append({'date':a[0], 'value': words[2] + words[3]})
-        dict['datapoints'] = data_points
+        dict['meterstands']['datapoints'] = data_points
 
 
 def get_coordinates(i):
@@ -97,7 +98,7 @@ if __name__=="__main__":
         main_dict = {}
         main_dict['invoiceSections'] = []
         invoices_dict = image_to_dict(img, root, main_dict)
-        print(invoices_dict)
+        # print(invoices_dict)
         json_object = json.dumps(invoices_dict, indent = 4, ensure_ascii=False)
         with open('result.json', 'w') as fp:
             fp.write(json_object)
