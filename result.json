@@ -1,29 +1,29 @@
 {
     "invoiceSections": [
         {
-            "Address": "Sj\u00f6vallagr\u00e4nd 2 24432 K\u00e4vlinge",
+            "Address": "Sjövallagränd 2 24432 Kävlinge",
             "facilityId": "735999187000463564",
             "contractId": "12010192",
             "kind": "ElHandel",
-            "period": "2021\u201410\u201401",
+            "period": "2021—10—01 — 2021—10—31",
             "invoiceRows": [
                 {
-                    "text": "M\u00e4nadens f\u00f6rvaltningsresultat",
-                    "spec": "1,00000 kWh \u2014239,29033 SEK/KkWh",
-                    "value": "\u2014239,29 SEK"
+                    "text": "Mänadens förvaltningsresultat",
+                    "spec": "1,00000 kWh —239,29033 SEK/KkWh",
+                    "value": "—239,29 SEK"
                 },
                 {
-                    "text": "Fast f\u00f6rvaltningsavgift",
+                    "text": "Fast förvaltningsavgift",
                     "spec": "1,00000 st 0,37000",
                     "value": "0,37 SEK"
                 },
                 {
-                    "text": "M\u00e4nadens handelsavgift s\u00e4krad volym",
+                    "text": "Mänadens handelsavgift säkrad volym",
                     "spec": "842,00000 kWh 0,00050 SEK/KWh",
                     "value": "0,42 SEK"
                 },
                 {
-                    "text": "R\u00f6rligt elpris",
+                    "text": "Rörligt elpris",
                     "spec": "1 464 kWh 0,92875 SEK/KWh",
                     "value": "1 359,68 SEK"
                 },
@@ -33,7 +33,7 @@
                     "value": "14,41 SEK"
                 },
                 {
-                    "text": "Ursprungsm\u00e4rkt EL",
+                    "text": "Ursprungsmärkt EL",
                     "spec": "1 464,00000 kWh 0,00450 SEK/KWh",
                     "value": "6,59 SEK"
                 }
@@ -43,40 +43,40 @@
             "meterNumber": "20322576",
             "datapoints": [
                 {
-                    "date": "2021\u201409\u201430",
+                    "date": "2021—09—30",
                     "value": "120918"
                 },
                 {
-                    "date": "2021\u201410\u201431",
+                    "date": "2021—10—31",
                     "value": "122382"
                 }
             ],
             "totalCons": " 1 464 kWh 20 613 kWh"
         },
         {
-            "Address": "Sj\u00f6vallagr\u00e4nd 4 24432 K\u00e4vlinge",
+            "Address": "Sjövallagränd 4 24432 Kävlinge",
             "facilityId": "735999187000463656",
             "contractId": "12010214",
             "kind": "ElHandel",
-            "period": "2021\u201410\u201401",
+            "period": "2021—10—01 — 2021—10—31",
             "invoiceRows": [
                 {
-                    "text": "M\u00e4nadens f\u00f6rvaltningsresultat",
-                    "spec": "1,00000 kWh \u201482,54209 SEK/KkWh",
-                    "value": "\u201482,54 SEK"
+                    "text": "Mänadens förvaltningsresultat",
+                    "spec": "1,00000 kWh —82,54209 SEK/KkWh",
+                    "value": "—82,54 SEK"
                 },
                 {
-                    "text": "Fast f\u00f6rvaltningsavgift",
+                    "text": "Fast förvaltningsavgift",
                     "spec": "1,00000 st 0,13000",
                     "value": "0,13 SEK"
                 },
                 {
-                    "text": "M\u00e4nadens handelsavgift s\u00e4krad volym",
+                    "text": "Mänadens handelsavgift säkrad volym",
                     "spec": "290,00000 kWh 0,00050 SEK/KWh",
                     "value": "0,15 SEK"
                 },
                 {
-                    "text": "R\u00f6rligt elpris",
+                    "text": "Rörligt elpris",
                     "spec": "505 kWh 0,92875 SEK/KWh",
                     "value": "469,02 SEK"
                 },
@@ -86,7 +86,7 @@
                     "value": "4,97 SEK"
                 },
                 {
-                    "text": "Ursprungsm\u00e4rkt EL",
+                    "text": "Ursprungsmärkt EL",
                     "spec": "505,00000 kWh 0,00450 SEK/KWh",
                     "value": "2,27 SEK"
                 }

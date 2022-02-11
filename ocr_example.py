@@ -21,7 +21,7 @@ def text_to_labels(label, text, dict):
         find_in_sentences(text, dict, contractId = 'nummer: ')
     if label == 'fm3':
         dict['kind'] = 'ElHandel'
-        dict['period'] = re.findall(r"[\d]{4}—[\d]{1,2}—[\d]{1,2}", text)[0]
+        find_in_sentences(text, dict, period = 'Elhandel ')
     if label == 't':
         if text.find('SEK') != -1:
             find_in_sentences(text, dict, totalCost = 'Totalt')
@@ -97,5 +97,7 @@ if __name__=="__main__":
         main_dict = {}
         main_dict['invoiceSections'] = []
         invoices_dict = image_to_dict(img, root, main_dict)
+        print(invoices_dict)
+        json_object = json.dumps(invoices_dict, indent = 4, ensure_ascii=False)
         with open('result.json', 'w') as fp:
-            json.dump(invoices_dict, fp, indent=4)
+            fp.write(json_object)
