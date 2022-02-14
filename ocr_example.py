@@ -30,29 +30,36 @@ def text_to_labels(label, text, dict):
     if label == 'fd':
         dict['invoiceRows'] = []
         sentences = text.split('\n')
-        non_empty_sentences = [i for i in sentences if i]
-        dict['VAT'] = non_empty_sentences[-2]
-        index = [i for i,x in enumerate(non_empty_sentences) if x.find('Moms')!=-1][0]
-        for ind, sentence in enumerate(non_empty_sentences):
-            if ind < index:
+        dict['VAT'] = " ".join(sentences[-2].split()[-2:])
+        for sentence in sentences[:-2]:
+            for ind, word in enumerate(sentence):
                 invoice = {}
-                invoice['text'] = sentence
-                invoice['spec'] = non_empty_sentences[ind+index+1] + " "+ non_empty_sentences[ind+2*index+1]
-                invoice['value'] = non_empty_sentences[ind+3*index+1]
-                dict['invoiceRows'].append(invoice)
+                if word.isdigit():
+                    if(sentence[ind-1] == '—'):
+                        ind = ind - 2
+                    invoice['text'] = sentence[:ind-2]
+                    invoice['value'] = ' '.join(sentence.split()[-2:])
+                    invoice['spec'] = sentence[ind:].replace(invoice['value'], ' ')
+                    dict['invoiceRows'].append(invoice)
+                    break
     if label == 'ms':
         sentences = text.split('\n')
         data_points = []
-        dict['meterstands'] = {}
+        dict_ms = {}
         for sentence in sentences:
             index = sentence.find('nummer: ')
             if index != -1:
-                dict['meterstands']['meterNumber'] = ''.join([word for word in sentence if word.isdigit()])
+                dict_ms['meterNumber'] = ''.join([word for word in sentence if word.isdigit()])
             a = re.findall(r"[\d]{4}—[\d]{1,2}—[\d]{1,2}", sentence)
             if a != []:
-                words = sentence.split()
-                data_points.append({'date':a[0], 'value': words[2] + words[3]})
-        dict['meterstands']['datapoints'] = data_points
+                words = sentence.split()[2:]
+                if len(words) < 2:
+                    value = words[0]
+                else:
+                    value = words[0] + words[1]
+                data_points.append({'date':a[0], 'value': value})
+        dict_ms['datapoints'] = data_points
+        dict['meterstands'].append(dict_ms)
 
 
 def get_coordinates(i):
@@ -71,6 +78,7 @@ def image_to_dict(img, root, main_dict):
     dict = {}
     results = ""
     objects = root.findall('object')
+    count_ms = 0
     for object in objects:
         for i in object:
             if i.tag == 'name':
@@ -78,27 +86,33 @@ def image_to_dict(img, root, main_dict):
             if i.tag == 'bndbox':
                 xmin, ymin, xmax, ymax = get_coordinates(i)
                 crop_img = img[int(ymin):int(ymax), int(xmin):int(xmax)]
-                results = tes.image_to_string(crop_img, lang='lat')
+                custom_config = r'--oem 1 --psm 6 '
+                results = tes.image_to_string(crop_img, lang='lat',
+                                              config=custom_config)
                 if label == 'h':
                     find_in_sentences(results, main_dict, customerId = 'Kundnr ',
                                       invoiceNumber = '/OCR—nr')
                 if label == 'fm1':
                     if bool(dict):
+                        count_ms = 0
                         main_dict['invoiceSections'].append(dict)
                     dict = {}
+                if label == 'ms':
+                        count_ms = count_ms + 1
+                        if(count_ms == 1):
+                            dict['meterstands'] = []
                 text_to_labels(label, results, dict)
 
     main_dict['invoiceSections'].append(dict)
     return main_dict
 
 if __name__=="__main__":
-        tree = ET.parse('/home/apurva/annotaions/faktura-30156425016_(1)0001-2.xml')
-        img = cv2.imread("/home/apurva/annotaions/faktura-30156425016_(1)0001-2.jpg")
+        tree = ET.parse('/home/apurva/tmp/faktura-78014963017_(1)0001-2.xml')
+        img = cv2.imread('/home/apurva/tmp/faktura-78014963017_(1)0001-2.jpg')
         root = tree.getroot()
         main_dict = {}
         main_dict['invoiceSections'] = []
         invoices_dict = image_to_dict(img, root, main_dict)
-        # print(invoices_dict)
         json_object = json.dumps(invoices_dict, indent = 4, ensure_ascii=False)
         with open('result.json', 'w') as fp:
             fp.write(json_object)
